@@ -1,14 +1,15 @@
-class Solution:
-    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        # i want to store the length of list
-        # next use the two variable to store the front and the back
-        # until the end
+class Solution(object):
+    def insert(self, intervals, newInterval):
+        """
+        :type intervals: List[List[int]]
+        :type newInterval: List[int]
+        :rtype: List[List[int]]
+        """
 
+        result = []
         length = len(intervals)
         i = 0
-        result = []
-
-        while i != length and intervals[i][1] < newInterval[0]:
+        while i < length and intervals[i][1] < newInterval[0]:
             result.append(intervals[i])
             i += 1
         while i < length and newInterval[1] >= intervals[i][0]:
@@ -16,12 +17,7 @@ class Solution:
             newInterval[1] = max(newInterval[1], intervals[i][1])
             i += 1
         result.append(newInterval)
-        while i != length and intervals[i][0] > newInterval[0]:
+        while i < length:
             result.append(intervals[i])
             i += 1
         return result
-
-            
-        
-
-                
