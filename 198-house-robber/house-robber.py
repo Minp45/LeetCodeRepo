@@ -1,20 +1,17 @@
 class Solution:
-    def __init__ (self):
-        self.memo = {}
-
     def rob(self, nums: List[int]) -> int:
-        self.memo = {}
-
-        return self.robFrom(0, nums)
-    
-    def robFrom(self, i, nums):
-        if i >= len(nums):
+        # i need to create a dp array and get the largest possible value for every index added
+        if not nums:
             return 0
-        if i in self.memo:
-            return self.memo[i]
-        ans = max(
-            self.robFrom(i + 1, nums), self.robFrom(i + 2, nums) + nums[i]
-        )
-        self.memo[i] = ans
-        return ans
+        if len(nums) == 1:
+            return nums[0]
+        dp = [0] * len(nums)
+        
+        dp[0] = nums[0]
+        dp[1] = max(nums[0], nums[1])
 
+        for i in range(2, len(nums)):
+            dp[i] = max(dp[i - 1], dp[i - 2] + nums[i])
+
+        return dp[-1]
+        
