@@ -11,5 +11,5 @@ class Solution:
         while stack:
             hashmap[stack.pop()] = -1
 
-        return [hashmap.get(i) for i in nums1]
+        return [hashmap[i] for i in nums1]
         
