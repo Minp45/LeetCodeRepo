@@ -1,28 +1,22 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution:
-    def diameterOfBinaryTree(self, root: TreeNode) -> int:
-        diameter = 0
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        self.diameter = 0  # Initialize a global variable to track the diameter
 
-        def longest_path(node):
+        # Helper function to calculate height
+        def height(node):
             if not node:
                 return 0
-            nonlocal diameter
-            # recursively find the longest path in
-            # both left child and right child
-            left_path = longest_path(node.left)
-            right_path = longest_path(node.right)
-
-            # update the diameter if left_path plus right_path is larger
-            diameter = max(diameter, left_path + right_path)
-
-            # return the longest one between left_path and right_path;
-            # remember to add 1 for the path connecting the node and its parent
-            return max(left_path, right_path) + 1
-
-        longest_path(root)
-        return diameter
+            # Recursively calculate the height of left and right subtrees
+            left_height = height(node.left)
+            right_height = height(node.right)
+            
+            # Update the diameter at this node
+            self.diameter = max(self.diameter, left_height + right_height)
+            
+            # Return the height of this node
+            return 1 + max(left_height, right_height)
+        
+        # Compute the height starting from the root, which updates the diameter
+        height(root)
+        
+        return self.diameter
