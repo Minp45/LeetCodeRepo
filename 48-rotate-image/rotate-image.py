@@ -4,14 +4,9 @@ class Solution:
         Do not return anything, modify matrix in-place instead.
         """
         length = len(matrix)
-        for layer in range(length // 2):
-            first = layer
-            last = length - 1 - layer
-            for i in range(first, last):
-                offset = i - first
-                top = matrix[first][i]
-                matrix[first][i] = matrix[last - offset][first]
-                matrix[last - offset][first] = matrix[last][last - offset]
-                matrix[last][last - offset] = matrix[i][last]
-                matrix[i][last] = top
+        for i in range(length):
+            for j in range(i + 1, length):
+                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+        for row in matrix:
+            row.reverse()
         return matrix
